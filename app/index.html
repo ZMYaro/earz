@@ -9,7 +9,10 @@
 	</head>
 	<body>
 		<header class="appBar z2">EarZ</header>
+		
+		<!-- Search box card -->
 		<section class="card z1" id="searchCard">
+			<!-- Search type selector -->
 			<form id="searchTypeForm">
 				<label for="lyricSearchType">
 					<input type="radio" name="searchType" id="lyricSearchType" checked="checked" />
@@ -22,12 +25,14 @@
 				</label>
 			</form>
 			<br /><br />
+			<!-- The text input form for lyric search -->
 			<form id="lyricSearchForm">
 				<input type="search" name="q" placeholder="Type a lyric here" style="display: block; width: 100%;" />
 				<div style="float: right;">
 					<button type="submit">Search</button>
 				</div>
 			</form>
+			<!-- TODO: Add the on-screen keyboard for melody search -->
 			<form id="melodySearchForm">
 				<input type="hidden" name="q" />
 				Not yet implemented.
@@ -37,10 +42,14 @@
 				</label>
 			</form>
 		</section>
+		
+		<!-- Search results card -->
 		<section class="card z1" id="resultsCard" style="display: none;">
 			<ul class="list" id="resultsList">
 			</ul>
 		</section>
+		
+		<!-- Search result detail view card -->
 		<section class="card z1 hidden" id="resultCard">
 		</section>
 	</body>

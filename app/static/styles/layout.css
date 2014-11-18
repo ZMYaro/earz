@@ -39,6 +39,7 @@ label {
 	display: none;
 }
 
+/* Styles for smaller screens, such as mobile phones */
 @media (max-width: 600px) {
 	section,
 	section.card {
@@ -63,7 +64,7 @@ label {
 	}
 }
 
-
+/* Animation keyframes for card animations */
 @-webkit-keyframes floatIn {
 	0% {
 		opacity: 0;

@@ -61,6 +61,7 @@
 	function searchForLyric(query) {
 		// Hide the results card while loading.
 		document.getElementById('resultsCard').classList.add('hidden');
+		document.getElementById('resultCard').classList.add('hidden');
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -98,19 +99,19 @@
 			}
 			
 			var resultItem = document.createElement('li');
+			var itemButton = document.createElement('button');
+			itemButton.dataset.id = results[i].getElementsByTagName('LyricId')[0].childNodes[0].nodeValue;
+			itemButton.dataset.checksum = results[i].getElementsByTagName('LyricChecksum')[0].childNodes[0].nodeValue;
 			
-			var title = document.createElement('a');
-			title.href = '#' + results[i].getElementsByTagName('LyricId')[0].childNodes[0].nodeValue +
-				'/' + results[i].getElementsByTagName('LyricChecksum')[0].childNodes[0].nodeValue;
-			title.style.fontSize = '120%';
+			var title = document.createElement('div');
 			title.innerText = title.textContent = results[i].getElementsByTagName('Song')[0].childNodes[0].nodeValue;
 			
-			var artist = document.createElement('span');
-			artist.style.opacity = 0.8;
-			artist.innerText = artist.textContent = ' ' + results[i].getElementsByTagName('Artist')[0].childNodes[0].nodeValue;
+			var artist = document.createElement('small');
+			artist.innerText = artist.textContent = results[i].getElementsByTagName('Artist')[0].childNodes[0].nodeValue;
 			
-			resultItem.appendChild(title);
-			resultItem.appendChild(artist);
+			itemButton.appendChild(title);
+			itemButton.appendChild(artist);
+			resultItem.appendChild(itemButton);
 			resultsList.appendChild(resultItem);
 		}
 		// Show the results card.

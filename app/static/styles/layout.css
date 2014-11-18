@@ -30,7 +30,17 @@ section.card {
 		     -o-animation-name: none;
 		        animation-name: none;
 	}
-
+	section.card > ul {
+		margin-top: -16px;
+		margin-bottom: -16px;
+	}
+		section.card > ul > li:first-child {
+			border-top: 0 none;
+		}
+		section.card > ul > li:last-child {
+			border-bottom: 0 none;
+		}
+	
 label {
 	white-space: nowrap;
 }
@@ -38,6 +48,10 @@ label {
 #lyricSearchForm, #melodySearchForm {
 	display: none;
 }
+	#lyricSearchForm input[type="search"] {
+		display: block;
+		width: 100%;
+	}
 
 /* Styles for smaller screens, such as mobile phones */
 @media (max-width: 600px) {

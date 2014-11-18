@@ -29,14 +29,14 @@
 			<br /><br />
 			<!-- The text input form for lyric search -->
 			<form id="lyricSearchForm">
-				<input type="search" name="q" placeholder="Type a lyric here" style="display: block; width: 100%;" />
+				<input type="search" name="q" placeholder="Type a lyric here" maxlength="200" required="required" />
 				<div style="text-align: right;">
 					<button type="submit">Search</button>
 				</div>
 			</form>
 			<!-- TODO: Add the on-screen keyboard for melody search -->
 			<form id="melodySearchForm">
-				<input type="hidden" name="q" />
+				<input type="hidden" name="q" value="" />
 				<p style="text-align: center; opacity: 0.8;">Not yet implemented.</p>
 				<div style="text-align: right;">
 					<button type="submit">Search</button>
@@ -45,7 +45,7 @@
 		</section>
 		
 		<!-- Search results card -->
-		<section class="card z1" id="resultsCard" style="display: none;">
+		<section class="card z1 hidden" id="resultsCard">
 			<ul class="list" id="resultsList">
 			</ul>
 		</section>

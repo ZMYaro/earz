@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+	var URLS = {
+		CHARTLYRICS: '/proxy/chartlyrics?q=',
+		ITUNES: '/proxy/itunes?q=',
+		SPOTIFY: '/proxy/spotify?q='
+	};
+	
 	/**
 	 * Initialize the application.
 	 */
@@ -29,6 +35,15 @@
 			}
 		};
 		
+		// Override the lyric search form.
+		lyricSearchForm.onsubmit = function(e) {
+			e.preventDefault();
+			if (e.target.q.value !== '') {
+				searchForLyric(e.target.q.value);
+			}
+		};
+		
+		
 		// Load the last used search type from localStorage.
 		if (localStorage.searchType === 'melody') {
 			//searchTypeForm.searchType.value = 'melody';
@@ -37,6 +52,69 @@
 			//searchTypeForm.searchType.value = 'lyric';
 			document.getElementById('lyricSearchType').click();
 		}
+	}
+	
+	/**
+	 * Search for songs containing a particular lyric.
+	 * @param {String} query - The lyric to search for
+	 */
+	function searchForLyric(query) {
+		// Hide the results card while loading.
+		document.getElementById('resultsCard').classList.add('hidden');
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					if (xhr.responseXML) {
+						showSearchResults(xhr.responseXML);
+					} else {
+						alert('Something went wrong while searching.');
+					}
+				} else {
+					alert('A ' + xhr.status + ' error occurred while searching, likely because the API is misbehaving.');
+				}
+			}
+		};
+		xhr.open('GET', URLS.CHARTLYRICS + encodeURIComponent(query), true);
+		xhr.send();
+	}
+	/**
+	 * Process and display lyric search results.
+	 * @param {XMLDocument} resultsXML - The search results
+	 */
+	function showSearchResults(resultsXML) {
+		var results = resultsXML.getElementsByTagName('SearchLyricResult');
+		
+		// Get and clear the results list.
+		var resultsList = document.getElementById('resultsList');
+		resultsList.innerHTML = '';
+		
+		// Go through the results.
+		for (var i = 0; i < results.length; i++) {
+			// Skip any elements with no content.
+			if (results[i].childNodes.length === 0) {
+				continue;
+			}
+			
+			var resultItem = document.createElement('li');
+			
+			var title = document.createElement('a');
+			title.href = '#' + results[i].getElementsByTagName('LyricId')[0].childNodes[0].nodeValue +
+				'/' + results[i].getElementsByTagName('LyricChecksum')[0].childNodes[0].nodeValue;
+			title.style.fontSize = '120%';
+			title.innerText = title.textContent = results[i].getElementsByTagName('Song')[0].childNodes[0].nodeValue;
+			
+			var artist = document.createElement('span');
+			artist.style.opacity = 0.8;
+			artist.innerText = artist.textContent = ' ' + results[i].getElementsByTagName('Artist')[0].childNodes[0].nodeValue;
+			
+			resultItem.appendChild(title);
+			resultItem.appendChild(artist);
+			resultsList.appendChild(resultItem);
+		}
+		// Show the results card.
+		document.getElementById('resultsCard').classList.remove('hidden');
 	}
 	
 	

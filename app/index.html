@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-elements.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-widgets.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-depth.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/theming.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/layout.css" />
+	</head>
+	<body>
+		<header class="appBar z2">EarZ</header>
+		<section class="card z1" id="searchCard">
+			<form id="searchTypeForm">
+				<label for="lyricSearchType">
+					<input type="radio" name="searchType" id="lyricSearchType" checked="checked" />
+					Search by lyric
+				</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="melodySearchType">
+					<input type="radio" name="searchType" id="melodySearchType" />
+					Search by melody
+				</label>
+			</form>
+			<br /><br />
+			<form id="lyricSearchForm">
+				<input type="search" name="q" placeholder="Type a lyric here" style="display: block; width: 100%;" />
+				<div style="float: right;">
+					<button type="submit">Search</button>
+				</div>
+			</form>
+			<form id="melodySearchForm">
+				<input type="hidden" name="q" />
+				Not yet implemented.
+				<label for="check">
+					<input type="checkbox" id="check" checked="checked" />
+					Dvorak
+				</label>
+			</form>
+		</section>
+		<section class="card z1" id="resultsCard" style="display: none;">
+			<ul class="list" id="resultsList">
+			</ul>
+		</section>
+		<section class="card z1 hidden" id="resultCard">
+		</section>
+	</body>
+</html>

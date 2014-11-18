@@ -6,6 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-depth.css" />
 		<link rel="stylesheet" type="text/css" href="/static/styles/theming.css" />
 		<link rel="stylesheet" type="text/css" href="/static/styles/layout.css" />
+		
+		<script type="text/javascript" src="/static/scripts/app.js"></script>
 	</head>
 	<body>
 		<header class="appBar z2">EarZ</header>
@@ -15,12 +17,12 @@
 			<!-- Search type selector -->
 			<form id="searchTypeForm">
 				<label for="lyricSearchType">
-					<input type="radio" name="searchType" id="lyricSearchType" checked="checked" />
+					<input type="radio" name="searchType" value="lyric" id="lyricSearchType" />
 					Search by lyric
 				</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="melodySearchType">
-					<input type="radio" name="searchType" id="melodySearchType" />
+					<input type="radio" name="searchType" value="melody" id="melodySearchType" />
 					Search by melody
 				</label>
 			</form>
@@ -28,18 +30,17 @@
 			<!-- The text input form for lyric search -->
 			<form id="lyricSearchForm">
 				<input type="search" name="q" placeholder="Type a lyric here" style="display: block; width: 100%;" />
-				<div style="float: right;">
+				<div style="text-align: right;">
 					<button type="submit">Search</button>
 				</div>
 			</form>
 			<!-- TODO: Add the on-screen keyboard for melody search -->
 			<form id="melodySearchForm">
 				<input type="hidden" name="q" />
-				Not yet implemented.
-				<label for="check">
-					<input type="checkbox" id="check" checked="checked" />
-					Dvorak
-				</label>
+				<p style="text-align: center; opacity: 0.8;">Not yet implemented.</p>
+				<div style="text-align: right;">
+					<button type="submit">Search</button>
+				</div>
 			</form>
 		</section>
 		

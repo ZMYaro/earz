@@ -7,6 +7,8 @@ threadsafe: true
 handlers:
 - url: /static
   static_dir: static
+- url: /proxy(/.*)?
+  script: proxy.app
 - url: /.*
   script: main.app
 

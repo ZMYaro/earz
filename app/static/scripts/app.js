@@ -158,7 +158,7 @@
 		var artist = document.createElement('small');
 		artist.innerText = artist.textContent = songXML.getElementsByTagName('LyricArtist')[0].childNodes[0].nodeValue;
 		var lyrics = document.createElement('pre');
-		lyrics.innerText = lyric.textContent = songXML.getElementsByTagName('Lyric')[0].childNodes[0].nodeValue;
+		lyrics.innerText = lyrics.textContent = songXML.getElementsByTagName('Lyric')[0].childNodes[0].nodeValue;
 		
 		songCard.appendChild(heading);
 		songCard.appendChild(artist);

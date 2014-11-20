@@ -2,7 +2,8 @@
 
 (function () {
 	var URLS = {
-		CHARTLYRICS: '/proxy/chartlyrics?q=',
+		CHARTLYRICS_LYRIC: '/proxy/chartlyricslyric?q=',
+		CHARTLYRICS_SONG: '/proxy/chartlyricssong',
 		ITUNES: '/proxy/itunes?q=',
 		SPOTIFY: '/proxy/spotify?q='
 	};
@@ -61,7 +62,7 @@
 	function searchForLyric(query) {
 		// Hide the results card while loading.
 		document.getElementById('resultsCard').classList.add('hidden');
-		document.getElementById('resultCard').classList.add('hidden');
+		document.getElementById('songCard').classList.add('hidden');
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -77,7 +78,7 @@
 				}
 			}
 		};
-		xhr.open('GET', URLS.CHARTLYRICS + encodeURIComponent(query), true);
+		xhr.open('GET', URLS.CHARTLYRICS_LYRIC + encodeURIComponent(query), true);
 		xhr.send();
 	}
 	/**
@@ -102,6 +103,7 @@
 			var itemButton = document.createElement('button');
 			itemButton.dataset.id = results[i].getElementsByTagName('LyricId')[0].childNodes[0].nodeValue;
 			itemButton.dataset.checksum = results[i].getElementsByTagName('LyricChecksum')[0].childNodes[0].nodeValue;
+			itemButton.onclick = loadSong;
 			
 			var title = document.createElement('div');
 			title.innerText = title.textContent = results[i].getElementsByTagName('Song')[0].childNodes[0].nodeValue;
@@ -116,6 +118,52 @@
 		}
 		// Show the results card.
 		document.getElementById('resultsCard').classList.remove('hidden');
+	}
+	/**
+	 * Load the song for the clicked button.
+	 * @param {MouseEvent} e
+	 */
+	function loadSong(e) {
+		var url = URLS.CHARTLYRICS_SONG;
+		url += '?lyricId=' + encodeURIComponent(e.currentTarget.dataset.id);
+		url += '&lyricCheckSum=' + encodeURIComponent(e.currentTarget.dataset.checksum);
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					if (xhr.responseXML) {
+						showSong(xhr.responseXML);
+					} else {
+						alert('Something went wrong while loading the song.');
+					}
+				} else {
+					alert('A ' + xhr.status + ' error occurred while loading the song, likely because the API is misbehaving.');
+				}
+			}
+		};
+		xhr.open('GET', url, true);
+		xhr.send();
+	}
+	/**
+	 * Display the lyrics for the selected song.
+	 * @param {XMLDocument} songXML - The song's data
+	 */
+	function showSong(songXML) {
+		var songCard = document.getElementById('songCard');
+		songCard.innerHTML = '';
+		
+		var heading = document.createElement('h1');
+		heading.innerText = heading.textContent = songXML.getElementsByTagName('LyricSong')[0].childNodes[0].nodeValue;
+		var artist = document.createElement('small');
+		artist.innerText = artist.textContent = songXML.getElementsByTagName('LyricArtist')[0].childNodes[0].nodeValue;
+		var lyrics = document.createElement('pre');
+		lyrics.innerText = lyric.textContent = songXML.getElementsByTagName('Lyric')[0].childNodes[0].nodeValue;
+		
+		songCard.appendChild(heading);
+		songCard.appendChild(artist);
+		songCard.appendChild(lyrics);
+		songCard.classList.remove('hidden');
 	}
 	
 	

@@ -1,3 +1,9 @@
+.appBar button > img,
+.appBar *[role="button"] > img {
+	width: 32px;
+	height: 32px;
+}
+
 section,
 section.card {
 	display: block;

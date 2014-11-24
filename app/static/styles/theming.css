@@ -20,15 +20,15 @@ body {
 	background-color: #f57c00;
 }
 
-a,
-a:visited {
+a:not([role="button"]),
+a:not([role="button"]):visited {
 	color: #ef6c00;
 }
-	a:hover,
-	a:focus {
+	a:not([role="button"]):hover,
+	a:not([role="button"]):focus {
 		color: #ff790a;
 	}
-	a:active {
+	a:not([role="button"]):active {
 		color: #d66100;
 	}
 

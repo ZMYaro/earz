@@ -40,12 +40,15 @@ section.card {
 		section.card > ul > li:last-child {
 			border-bottom: 0 none;
 		}
-			section.card > ul > li > button {
+			section.card > ul > li > button,
+			section.card > ul > li > *[role="button"] {
 				display: block;
-				width: 100%;
-				width: calc(100% + 64px);
 				margin: -16px -32px;
 			}
+				section.card > ul > li > button {
+					width: 100%;
+					width: calc(100% + 64px);
+				}
 			section.card > ul > li small {
 				font-size: 90%;
 				opacity: 0.7;

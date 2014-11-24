@@ -1,0 +1,18 @@
+	</head>
+	<body>
+		<header class="appBar z2">Admin</header>
+		<section class="card z1">
+			{% for song in songs %}
+				<ul class="list">
+					<li>
+						<a role="button" href="/admin/song?id={{ song.docId }}">
+							{{ song.title }}
+						</a>
+					</li>
+				</ul>
+			{% else %}
+				<p style="text-align: center; opacity: 0.8;">No songs have been added to the database.</p>
+			{% endfor %}
+		</section>
+	</body>
+</html>

@@ -1,47 +1,52 @@
+		<link rel="stylesheet" type="text/css" href="/static/styles/app.css" />
 		<script type="text/javascript" src="/static/scripts/app.js"></script>
 	</head>
 	<body>
-		<header class="appBar z2">EarZ</header>
-		
-		<!-- Search box card -->
-		<section class="card z1" id="searchCard">
-			<!-- Search type selector -->
-			<form id="searchTypeForm">
-				<label for="lyricSearchType">
-					<input type="radio" name="searchType" value="lyric" id="lyricSearchType" />
-					Search by lyric
-				</label>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label for="melodySearchType">
-					<input type="radio" name="searchType" value="melody" id="melodySearchType" />
-					Search by melody
-				</label>
-			</form>
-			<!-- The text input form for lyric search -->
-			<form id="lyricSearchForm">
-				<input type="search" name="q" placeholder="Type a lyric here" maxlength="200" required="required" />
-				<div style="text-align: right;">
-					<button type="submit">Search</button>
-				</div>
-			</form>
-			<!-- TODO: Add the on-screen keyboard for melody search -->
-			<form id="melodySearchForm">
-				<input type="hidden" name="q" value="" />
-				<p style="text-align: center; opacity: 0.8;">Not yet implemented.</p>
-				<div style="text-align: right;">
-					<button type="submit">Search</button>
-				</div>
-			</form>
-		</section>
-		
-		<!-- Search results card -->
-		<section class="card z1 hidden" id="resultsCard">
-			<ul class="list" id="resultsList">
-			</ul>
-		</section>
-		
-		<!-- Search result detail view card -->
-		<section class="card z1 hidden" id="songCard">
-		</section>
+		<header id="searchAppBar" class="appBar z2">EarZ</header>
+		<div id="searchContainer">
+			
+			<!-- Search box card -->
+			<section class="card z1" id="searchCard">
+				<!-- Search type selector -->
+				<form id="searchTypeForm">
+					<label for="lyricSearchType">
+						<input type="radio" name="searchType" value="lyric" id="lyricSearchType" />
+						Search by lyric
+					</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label for="melodySearchType">
+						<input type="radio" name="searchType" value="melody" id="melodySearchType" />
+						Search by melody
+					</label>
+				</form>
+				<!-- The text input form for lyric search -->
+				<form id="lyricSearchForm">
+					<input type="search" name="q" placeholder="Type a lyric here" maxlength="200" required="required" />
+					<div style="text-align: right;">
+						<button type="submit">Search</button>
+					</div>
+				</form>
+				<!-- TODO: Add the on-screen keyboard for melody search -->
+				<form id="melodySearchForm">
+					<input type="hidden" name="q" value="" />
+					<p style="text-align: center; opacity: 0.8;">Not yet implemented.</p>
+					<div style="text-align: right;">
+						<button type="submit">Search</button>
+					</div>
+				</form>
+			</section>
+			
+			<!-- Search results card -->
+			<section class="card z1 hidden" id="resultsCard">
+				<ul class="list" id="resultsList">
+				</ul>
+			</section>
+		</div>
+		<header id="songAppBar" class="appBar z2 hidden" style="display: none;"></header>
+		<div id="songContainer" class="hidden" style="display: none;">
+			<!-- Search result detail view card -->
+			<section class="card z1 hidden" id="songCard">
+			</section>
+		</div>
 	</body>
 </html>

@@ -1,0 +1,75 @@
+#searchContainer,
+#songContainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	
+	padding: 24px;
+	padding-top: 88px;
+	
+	opacity: 1;
+	transform: translateY(0);
+	
+	transition-duration: 0.2s;
+}
+	#searchContainer.hidden,
+	#searchAppBar.hidden {
+		opacity: 0;
+		transform: translateY(-64px);
+	}
+		#searchContainer.hidden .appBar {
+			top: 64px; /* Offset the search container's translation. */
+		}
+	#songContainer.hidden {
+		opacity: 0;
+		transform: tranlateY(80%);
+	}
+
+#songAppBar {
+	-webkit-transition-duration: 0.2s;
+	   -moz-transition-duration: 0.2s;
+	    -ms-transition-duration: 0.2s;
+	     -o-transition-duration: 0.2s;
+	        transition-duration: 0.2s;
+	-webkit-transition-property: all;
+	   -moz-transition-property: all;
+	    -ms-transition-property: all;
+	     -o-transition-property: all;
+	        transition-property: all;
+}
+	#songAppBar.hidden {
+		font-size: 16px;
+		
+		background-color: white;
+		color: black;
+		
+		-webkit-box-shadow: none;
+		   -moz-box-shadow: none;
+		        box-shadow: none;
+		
+		opacity: 0;
+		
+		-webkit-transition-duration: 0;
+		   -moz-transition-duration: 0;
+		    -ms-transition-duration: 0;
+		     -o-transition-duration: 0;
+		        transition-duration: 0;
+	}
+
+#searchTypeForm {
+	line-height: 1.75em;
+	margin-bottom: 0.5em;
+}
+#lyricSearchForm, #melodySearchForm {
+	display: none;
+}
+	#lyricSearchForm input[type="search"] {
+		display: block;
+		width: 100%;
+	}
+	#lyricSearchForm button,
+	#melodySearchForm button {
+		margin-right: 0;
+		margin-bottom: 0;
+	}

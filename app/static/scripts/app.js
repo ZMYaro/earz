@@ -8,6 +8,8 @@
 		SPOTIFY: '/proxy/spotify?q='
 	};
 	
+	var TRANSITION_DURATION = 200; // Milliseconds
+	
 	/**
 	 * Initialize the application.
 	 */
@@ -103,6 +105,7 @@
 			var itemButton = document.createElement('button');
 			itemButton.dataset.id = results[i].getElementsByTagName('LyricId')[0].childNodes[0].nodeValue;
 			itemButton.dataset.checksum = results[i].getElementsByTagName('LyricChecksum')[0].childNodes[0].nodeValue;
+			itemButton.dataset.title = results[i].getElementsByTagName('Song')[0].childNodes[0].nodeValue;
 			itemButton.onclick = loadSong;
 			
 			var title = document.createElement('div');
@@ -144,6 +147,32 @@
 		};
 		xhr.open('GET', url, true);
 		xhr.send();
+		
+		// Hide the search view.
+		var searchAppBar = document.getElementById('searchAppBar');
+		var searchContainer = document.getElementById('searchContainer');
+		searchAppBar.classList.add('hidden');
+		searchContainer.classList.add('hidden');
+		setTimeout(function () {
+			searchContainer.style.display = 'none';
+		}, TRANSITION_DURATION);
+		// Show the song view.
+		var songAppBar = document.getElementById('songAppBar');
+		var songContainer = document.getElementById('songContainer');
+		songAppBar.style.display = null;
+		songContainer.style.display = null;
+		songAppBar.style.left = e.currentTarget.offsetLeft + 'px';
+		songAppBar.style.right = (window.innerWidth - (e.currentTarget.offsetLeft + e.currentTarget.offsetWidth)) + 'px';
+		songAppBar.style.top = (e.currentTarget.offsetTop - window.scrollY) + 'px';
+		songAppBar.innerHTML = e.currentTarget.dataset.title;
+		setTimeout(function () {
+			songAppBar.classList.remove('hidden');
+			songContainer.classList.remove('hidden');
+			
+			songAppBar.style.left = null;
+			songAppBar.style.right = null;
+			songAppBar.style.top = null;
+		}, 1);
 	}
 	/**
 	 * Display the lyrics for the selected song.

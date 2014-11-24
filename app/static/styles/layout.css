@@ -58,23 +58,6 @@ label {
 	white-space: nowrap;
 }
 
-#searchTypeForm {
-	line-height: 1.75em;
-	margin-bottom: 0.5em;
-}
-#lyricSearchForm, #melodySearchForm {
-	display: none;
-}
-	#lyricSearchForm input[type="search"] {
-		display: block;
-		width: 100%;
-	}
-	#lyricSearchForm button,
-	#melodySearchForm button {
-		margin-right: 0;
-		margin-bottom: 0;
-	}
-
 /* Styles for smaller screens, such as mobile phones */
 @media (max-width: 600px) {
 	section,

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- Mobile support -->
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
 		
 		{% if title: %}
 			<title>{{ title }} - EarZ</title>
@@ -9,8 +12,13 @@
 			<title>EarZ - Song search for humans</title>
 		{% endif %}
 		
+		<!-- Icons -->
 		<link rel="icon" type="image/x-icon" href="/static/images/icons/favicon.ico" />
+		<link rel="icon" sizes="128x128" href="/static/images/icons/icon_128.png" />
+		<link rel="icon" sizes="256x256" href="/static/images/icons/icon_256.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="128x128" href="/static/images/icons/icon_128.png" />
 		
+		<!-- Basic theme and layout stylesheets -->
 		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-elements.css" />
 		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-widgets.css" />
 		<link rel="stylesheet" type="text/css" href="/static/styles/materialz/material-depth.css" />

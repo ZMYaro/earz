@@ -55,11 +55,11 @@
 	    -ms-transition-duration: 0.1s;
 	     -o-transition-duration: 0.1s;
 	        transition-duration: 0.1s;
-	-webkit-transition-property: opacity, -webkit-transform, transform;
-	   -moz-transition-property: opacity,    -moz-transform, transform;
-	    -ms-transition-property: opacity,     -ms-transform, transform;
-	     -o-transition-property: opacity,      -o-transform, transform;
-	        transition-property: opacity, transform;
+	-webkit-transition-property: all;
+	   -moz-transition-property: all;
+	    -ms-transition-property: all;
+	     -o-transition-property: all;
+	        transition-property: all;
 }
 	#searchAppBar.hidden {
 		opacity: 0;
@@ -124,3 +124,11 @@
 		margin-right: 0;
 		margin-bottom: 0;
 	}
+
+@media (max-width: 600px) {
+	#searchContainer,
+	#songContainer {
+		padding: 16px;
+		padding-top: 72px;
+	}
+}

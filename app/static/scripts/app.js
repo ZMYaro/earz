@@ -14,12 +14,13 @@
 	 * Initialize the application.
 	 */
 	function init() {
-		initSearchCard();
+		initSearchView();
+		initSongView();
 	}
 	/**
-	 * Set up event listeners for the search card.
+	 * Set up event listeners for the search view.
 	 */
-	function initSearchCard() {
+	function initSearchView() {
 		var searchTypeForm = document.getElementById('searchTypeForm'),
 			lyricSearchForm = document.getElementById('lyricSearchForm'),
 			melodySearchForm = document.getElementById('melodySearchForm');
@@ -55,6 +56,12 @@
 			//searchTypeForm.searchType.value = 'lyric';
 			document.getElementById('lyricSearchType').click();
 		}
+	}
+	/**
+	 * Set up event listeners for the song view.
+	 */
+	function initSongView() {
+		document.getElementById('songUpButton').onclick = closeSong;
 	}
 	
 	/**
@@ -154,6 +161,7 @@
 		searchAppBar.classList.add('hidden');
 		searchContainer.classList.add('hidden');
 		setTimeout(function () {
+			searchAppBar.style.display = 'none';
 			searchContainer.style.display = 'none';
 		}, TRANSITION_DURATION);
 		// Show the song view.
@@ -164,7 +172,7 @@
 		songAppBar.style.left = e.currentTarget.offsetLeft + 'px';
 		songAppBar.style.right = (window.innerWidth - (e.currentTarget.offsetLeft + e.currentTarget.offsetWidth)) + 'px';
 		songAppBar.style.top = (e.currentTarget.offsetTop - window.scrollY) + 'px';
-		songAppBar.innerHTML = e.currentTarget.dataset.title;
+		document.getElementById('songTitle').innerHTML = e.currentTarget.dataset.title;
 		setTimeout(function () {
 			songAppBar.classList.remove('hidden');
 			songContainer.classList.remove('hidden');
@@ -192,7 +200,35 @@
 		songCard.appendChild(heading);
 		songCard.appendChild(artist);
 		songCard.appendChild(lyrics);
-		songCard.classList.remove('hidden');
+		
+		setTimeout(function () {
+			songCard.classList.remove('hidden');
+		}, 1);
+	}
+	/**
+	 * Hide the current song and return to search results.
+	 */
+	function closeSong() {
+		// Hide the song view.
+		var songAppBar = document.getElementById('songAppBar');
+		var songCard = document.getElementById('songCard');
+		var songContainer = document.getElementById('songContainer');
+		songAppBar.classList.add('hidden');
+		songCard.classList.add('hidden');
+		songContainer.classList.add('hidden');
+		setTimeout(function () {
+			songAppBar.style.display = 'none';
+			songContainer.style.display = 'none';
+		}, TRANSITION_DURATION);
+		// Show the search view.
+		var searchAppBar = document.getElementById('searchAppBar');
+		var searchContainer = document.getElementById('searchContainer');
+		searchAppBar.style.display = null;
+		searchContainer.style.display = null;
+		setTimeout(function () {
+			searchAppBar.classList.remove('hidden');
+			searchContainer.classList.remove('hidden');
+		}, 1);
 	}
 	
 	

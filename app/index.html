@@ -2,7 +2,7 @@
 		<script type="text/javascript" src="/static/scripts/app.js"></script>
 	</head>
 	<body>
-		<header id="searchAppBar" class="appBar z2">EarZ</header>
+		<!-- View containers -->
 		<div id="searchContainer">
 			
 			<!-- Search box card -->
@@ -42,11 +42,19 @@
 				</ul>
 			</section>
 		</div>
-		<header id="songAppBar" class="appBar z2 hidden" style="display: none;"></header>
 		<div id="songContainer" class="hidden" style="display: none;">
 			<!-- Search result detail view card -->
 			<section class="card z1 hidden" id="songCard">
 			</section>
 		</div>
+		
+		<!-- App bars -->
+		<header id="songAppBar" class="appBar z2 hidden" style="display: none;">
+			<button id="songUpButton">
+				<img src="/static/images/icons/back.png" alt="&larr;" />
+			</button>
+			<span id="songTitle"></span>
+		</header>
+		<header id="searchAppBar" class="appBar z2">EarZ</header>
 	</body>
 </html>

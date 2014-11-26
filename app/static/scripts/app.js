@@ -138,6 +138,8 @@
 		url += '?lyricId=' + encodeURIComponent(e.currentTarget.dataset.id);
 		url += '&lyricCheckSum=' + encodeURIComponent(e.currentTarget.dataset.checksum);
 		
+		loadSongLinks(e.currentTarget.dataset.title);
+		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
@@ -183,11 +185,62 @@
 		}, 1);
 	}
 	/**
+	 * Load links to the song on iTunes and Spotify.
+	 * @param {String} title - The title of the song to look up
+	 */
+	function loadSongLinks(title) {
+		// Get the song links card.
+		var songLinksCard = document.getElementById('songLinksCard');
+		songLinksCard.classList.add('hidden');
+		songLinksCard.innerHTML = '';
+		
+		// Search iTunes.
+		var iTunesXHR = new XMLHttpRequest();
+		iTunesXHR.onreadystatechange = function () {
+			if (iTunesXHR.status === 200) {
+				if (iTunesXHR.readyState === 4) {
+					var response = JSON.parse(iTunesXHR.responseText);
+					if (response.results && response.results.length) {
+						songLinksCard.classList.remove('hidden');
+						songLinksCard.innerHTML += '<a role=\"button\" href=\"' +
+							response.results[0].trackViewUrl +
+							'\" target=\"_blank\">' +
+							'<img src=\"/static/images/icons/itunes_32.png\" alt=\"\" style=\"margin: -10px; margin-right: 10px;\" />' +
+							'Buy on iTunes</a>';
+					}
+				}
+			}
+		};
+		iTunesXHR.open('GET', URLS.ITUNES + encodeURIComponent(title), true);
+		iTunesXHR.send();
+		
+		// Search Spotify.
+		var spotifyXHR = new XMLHttpRequest();
+		spotifyXHR.onreadystatechange = function () {
+			if (spotifyXHR.status === 200) {
+				if (spotifyXHR.readyState === 4) {
+					var response = JSON.parse(spotifyXHR.responseText);
+					if (response.tracks && response.tracks.items && response.tracks.items.length) {
+						songLinksCard.classList.remove('hidden');
+						songLinksCard.innerHTML += '<a role=\"button\" href=\"' +
+							response.tracks.items[0].external_urls.spotify +
+							'\" target=\"_blank\">' +
+							'<img src=\"/static/images/icons/spotify_32.png\" alt=\"\" style=\"margin: -10px; margin-right: 10px;\" />' +
+							'Listen on Spotify</a>';
+					}
+				}
+			}
+		};
+		spotifyXHR.open('GET', URLS.SPOTIFY + encodeURIComponent(title), true);
+		spotifyXHR.send();
+	}
+	/**
 	 * Display the lyrics for the selected song.
 	 * @param {XMLDocument} songXML - The song's data
 	 */
 	function showSong(songXML) {
 		var songCard = document.getElementById('songCard');
+		songCard.classList.add('hidden');
 		songCard.innerHTML = '';
 		
 		var heading = document.createElement('h1');

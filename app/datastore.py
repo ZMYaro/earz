@@ -14,12 +14,15 @@ DEFAULTS = {
 LYRICS_INDEX_NAME = 'lyricsIndex'
 
 class Song(ndb.Model):
-	docId = ndb.StringProperty()
 	title = ndb.StringProperty()
 	artist = ndb.StringProperty()
 	album = ndb.StringProperty()
+	
 	intervals = ndb.JsonProperty()
 	startingNote = ndb.FloatProperty()
+	
+	docId = ndb.StringProperty() # The document ID of the lyrics doc, if any
+	vidId = ndb.StringProperty() # The YouTube video id of the music video, if any
 	
 	def _pre_put_hook(self):
 		# Fill in default values for fields.
@@ -31,7 +34,7 @@ class Song(ndb.Model):
 		doc = search.Document(
 			doc_id=self.extID,
 			fields=[
-				search.TextField(name='lyrics', value = self.lyricsTxt),
+				search.TextField(name='lyrics', value=self.lyricsTxt),
 				search.TextField(name='title', value=self.title)
 			]
 		)

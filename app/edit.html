@@ -1,0 +1,121 @@
+		<style type="text/css">
+			table {
+				width: 100%;
+			}
+			td > input[type="text"],
+			td > input[type="number"],
+			td > textarea {
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<form method="POST" action="/admin/edit">
+			<header class="appBar z2">
+				<button type="submit" style="float: right;">
+					<img src="/static/images/icons/save.png" alt="Save" />
+				</button>
+				<a role="button" href="/admin">
+					<img src="/static/images/icons/back.png" alt="Back" />
+				</a>
+				{% if song %}
+					Edit song
+				{% else %}
+					Add song
+				{% endif %}
+			</header>
+			<section class="card z1">
+				<table>
+					<tr>
+						<td>
+							<label for="id">
+								ID
+							</label>
+						</td>
+						<td>
+							<input type="text" disabled="disabled" name="id" id="id" placeholder="00000000-0000-4000-a000-000000000000"{% if song and song.id %} value="{{ song.id }}"{% endif %} />
+					<tr>
+						<td>
+							<label for="title">
+								Title
+							</label>
+						</td>
+						<td>
+							<input type="text" name="title" id="title" placeholder="Enter title"{% if song and song.title %} value="{{ song.title }}"{% endif %} />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="artist">
+								Artist
+							</label>
+						</td>
+						<td>
+							<input type="text" name="artist" id="artist" placeholder="Enter artist"{% if song and song.artist %} value="{{ song.artist }}"{% endif %} />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="album">
+								Album
+							</label>
+						</td>
+						<td>
+							<input type="text" name="album" id="album" placeholder="Enter album"{% if song and song.album %} value="{{ song.album }}"{% endif %} />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<hr />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="docId">
+								Lyrics doc ID
+							</label>
+						</td>
+						<td>
+							<input type="text" name="docId" id="docId" placeholder="10123456789ABCDEfghijKLMNOpqr-stUVWXYzabcdeF"{% if song and song.docId %} value="{{ song.docId }}"{% endif %} />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="vidId">
+								YouTube video ID
+							</label>
+						</td>
+						<td>
+							<input type="text" name="vidId" id="vidId" placeholder="abcdeFGHIJK"{% if song and song.vidId %} value="{{ song.vidId }}"{% endif %} />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<hr />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="startingNote">
+								Starting note
+							</label>
+						</td>
+						<td>
+							<input type="number" name="startingNote" id="startingNote" placeholder="440"{% if song and song.startingNote %} value="{{ song.startingNote }}"{% endif %} />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="intervals">
+								Intervals (JSON)
+							</label>
+						</td>
+						<td>
+							<textarea name="intervals" id="intervals" placeholder="{}">{% if song and song.intervals %}{{ song.intervals }}{% endif %}</textarea>
+						</td>
+					</tr>
+				</table>
+			</section>
+		</form>
+	</body>
+</html>

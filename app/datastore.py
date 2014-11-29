@@ -30,15 +30,16 @@ class Song(ndb.Model):
 			self.startingNote = DEFAULTS['startingNote']
 	
 	def _post_put_hook(self,future):
-		# Update the song's assosciated search document.
-		doc = search.Document(
-			doc_id=self.extID,
-			fields=[
-				search.TextField(name='lyrics', value=self.lyricsTxt),
-				search.TextField(name='title', value=self.title)
-			]
-		)
-		search.Index(name=LYRICS_INDEX_NAME).put(doc)
+		# Update the song's associated search document.
+		if self.docId:
+			doc = search.Document(
+				doc_id=self.id,
+				fields=[
+					search.TextField(name='lyrics', value=self.lyricsTxt),
+					search.TextField(name='title', value=self.title)
+				]
+			)
+			search.Index(name=LYRICS_INDEX_NAME).put(doc)
 	
 	def getLyricsHTML(self):
 		resp = urllib.urlopen(URLS['html'] + self.docId)

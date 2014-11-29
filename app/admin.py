@@ -1,5 +1,6 @@
 import cgi
 import os
+import uuid
 
 import jinja2
 import webapp2
@@ -37,29 +38,58 @@ class AddSongPage(webapp2.RequestHandler):
 class EditSongPage(webapp2.RequestHandler):
 	def get(self):
 		# Get the requested song id.
-		songId = self.request.get('id')
+		id = self.request.get('id')
 		# Return to the admin page if no song was requested.
-		if not songId:
+		if not id:
 			self.redirect('/admin')
 			return
 		
-		song = Song.gql('WHERE id = :1', songId)
+		song = Song.gql('WHERE id = :1', id).get()
 		
 		# Return to the admin page if the song was not found.
 		if not song:
-			self.redirect('/admin')
+			self.response.write('Song ' + id + ' was not found.  Try refreshing?')
 			return
 		
 		self.response.headers['Content-Type'] = 'text/html'
 		template = JINJA_ENV.get_template('head.html')
 		self.response.write(template.render({'title': 'Edit song'}))
 		template = JINJA_ENV.get_template('edit.html')
-		self.response.write(template.render({song: song}))
+		self.response.write(template.render({'song': song}))
 	
 	def post(self):
-		# TODO: Implement saving the song.
-		self.redirect('/admin')
-	
+		id = self.request.get('id')
+		
+		# Attempt to load the song from the datastore.
+		song = Song.gql('WHERE id = :1', id).get()
+		
+		# If no ID was set or no song was found,
+		while not song:
+			# Generate a random ID.
+			id = uuid.uuid4().hex
+			# Ensure the generated ID is unique.
+			if Song.gql('WHERE id = :1', id).count(limit=1) == 0:
+				song = Song()
+				song.id = id
+		
+		song.title = self.request.get('title')
+		song.artist = self.request.get('artist')
+		song.album = self.request.get('album')
+		
+		song.intervals = self.request.get('intervals')
+		
+		try:
+			song.startingNote = float(self.request.get('startingNote'))
+		except ValueError:
+			song.startingNote = None
+		
+		song.docId = self.request.get('docId')
+		song.vidId = self.request.get('vidId')
+		
+		# Save the changes to the datastore.
+		song.put()
+		
+		self.redirect('/admin/edit?id=' + song.id)
 
 app = webapp2.WSGIApplication([
 	('/admin', AdminListPage),

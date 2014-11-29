@@ -14,6 +14,7 @@ DEFAULTS = {
 LYRICS_INDEX_NAME = 'lyricsIndex'
 
 class Song(ndb.Model):
+	id = ndb.StringProperty()
 	title = ndb.StringProperty()
 	artist = ndb.StringProperty()
 	album = ndb.StringProperty()

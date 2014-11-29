@@ -10,17 +10,19 @@
 			Admin
 		</header>
 		<section class="card z1">
-			{% for song in songs %}
-				<ul class="list">
+			<ul class="list">
+				{% for song in songs %}
 					<li>
-						<a role="button" href="/admin/song?id={{ song.docId }}">
+						<a role="button" href="/admin/edit?id={{ song.id }}">
 							{{ song.title }}
 						</a>
 					</li>
-				</ul>
-			{% else %}
-				<p style="text-align: center; opacity: 0.8;">No songs have been added to the database.</p>
-			{% endfor %}
+				{% else %}
+					<li style="text-align: center; opacity: 0.8;">
+						No songs have been added to the database.
+					</li>
+				{% endfor %}
+			</ul>
 		</section>
 	</body>
 </html>

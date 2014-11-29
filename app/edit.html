@@ -28,12 +28,13 @@
 				<table>
 					<tr>
 						<td>
-							<label for="id">
+							<label>
 								ID
 							</label>
 						</td>
 						<td>
-							<input type="text" disabled="disabled" name="id" id="id" placeholder="00000000-0000-4000-a000-000000000000"{% if song and song.id %} value="{{ song.id }}"{% endif %} />
+							<input type="hidden" name="id"{% if song and song.id %} value="{{ song.id }}"{% endif %} />
+							<input type="text" disabled="disabled" placeholder="0000000000004000a000000000000000"{% if song and song.id %} value="{{ song.id }}"{% endif %} />
 					<tr>
 						<td>
 							<label for="title">
@@ -41,7 +42,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="text" name="title" id="title" placeholder="Enter title"{% if song and song.title %} value="{{ song.title }}"{% endif %} />
+							<input type="text" required="required" name="title" id="title" placeholder="Enter title"{% if song and song.title %} value="{{ song.title }}"{% endif %} />
 						</td>
 					</tr>
 					<tr>

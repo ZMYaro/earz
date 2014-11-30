@@ -10,6 +10,8 @@ handlers:
 - url: /admin(/.*)?
   script: admin.app
   login: admin
+- url: /api(/.*)?
+  script: api.app
 - url: /proxy(/.*)?
   script: proxy.app
 - url: /.*

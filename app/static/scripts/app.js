@@ -2,10 +2,14 @@
 
 (function () {
 	var URLS = {
-		CHARTLYRICS_LYRIC: '/proxy/chartlyricslyric?q=',
-		CHARTLYRICS_SONG: '/proxy/chartlyricssong',
-		ITUNES: '/proxy/itunes?q=',
-		SPOTIFY: '/proxy/spotify?q='
+		lyricSearch: '/api/search/lyric?q=',
+		
+		song: '/api/song?id=',
+		lyricsHTML: '/api/lyrics?format=html&id=',
+				
+		iTunes: '/proxy/itunes?q=',
+		spotify: '/proxy/spotify?q=',
+		youTube: 'https://www.youtube.com/results?search_query='
 	};
 	
 	var TRANSITION_DURATION = 200; // Milliseconds
@@ -77,52 +81,45 @@
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					if (xhr.responseXML) {
-						showSearchResults(xhr.responseXML);
-					} else {
+					try {
+						showSearchResults(JSON.parse(xhr.responseText));
+					} catch (e) {
 						alert('Something went wrong while searching.');
 					}
 				} else {
-					alert('A ' + xhr.status + ' error occurred while searching, likely because the API is misbehaving.');
+					alert('A ' + xhr.status + ' error occurred while searching.  Please wait and then try again.');
 				}
 			}
 		};
-		xhr.open('GET', URLS.CHARTLYRICS_LYRIC + encodeURIComponent(query), true);
+		xhr.open('GET', URLS.lyricSearch + encodeURIComponent(query), true);
 		xhr.send();
 	}
 	/**
 	 * Process and display lyric search results.
-	 * @param {XMLDocument} resultsXML - The search results
+	 * @param {Object} results - The search results
 	 */
-	function showSearchResults(resultsXML) {
-		var results = resultsXML.getElementsByTagName('SearchLyricResult');
-		
+	function showSearchResults(results) {
 		// Get and clear the results list.
 		var resultsList = document.getElementById('resultsList');
 		resultsList.innerHTML = '';
 		
 		// Go through the results.
 		for (var i = 0; i < results.length; i++) {
-			// Skip any elements with no content.
-			if (results[i].childNodes.length === 0) {
-				continue;
-			}
-			
 			var resultItem = document.createElement('li');
 			var itemButton = document.createElement('button');
-			itemButton.dataset.id = results[i].getElementsByTagName('LyricId')[0].childNodes[0].nodeValue;
-			itemButton.dataset.checksum = results[i].getElementsByTagName('LyricChecksum')[0].childNodes[0].nodeValue;
-			itemButton.dataset.title = results[i].getElementsByTagName('Song')[0].childNodes[0].nodeValue;
+			itemButton.dataset.id = results[i].id
+			itemButton.dataset.title = results[i].title;
 			itemButton.onclick = loadSong;
 			
 			var title = document.createElement('div');
-			title.innerText = title.textContent = results[i].getElementsByTagName('Song')[0].childNodes[0].nodeValue;
+			title.innerText = title.textContent = results[i].title;
 			
-			var artist = document.createElement('small');
-			artist.innerText = artist.textContent = results[i].getElementsByTagName('Artist')[0].childNodes[0].nodeValue;
+			var metadata = document.createElement('small');
+			metadata.innerText = metadata.textContent = results[i].artist +
+				(results[i].album ? ' - ' + results[i].album : '');
 			
 			itemButton.appendChild(title);
-			itemButton.appendChild(artist);
+			itemButton.appendChild(metadata);
 			resultItem.appendChild(itemButton);
 			resultsList.appendChild(resultItem);
 		}
@@ -134,27 +131,19 @@
 	 * @param {MouseEvent} e
 	 */
 	function loadSong(e) {
-		var url = URLS.CHARTLYRICS_SONG;
-		url += '?lyricId=' + encodeURIComponent(e.currentTarget.dataset.id);
-		url += '&lyricCheckSum=' + encodeURIComponent(e.currentTarget.dataset.checksum);
-		
 		loadSongLinks(e.currentTarget.dataset.title);
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					if (xhr.responseXML) {
-						showSong(xhr.responseXML);
-					} else {
-						alert('Something went wrong while loading the song.');
-					}
+					showSong(xhr.responseText);
 				} else {
-					alert('A ' + xhr.status + ' error occurred while loading the song, likely because the API is misbehaving.');
+					alert('A ' + xhr.status + ' error occurred while loading the song.  Please wait and then try again.');
 				}
 			}
 		};
-		xhr.open('GET', url, true);
+		xhr.open('GET', URLS.lyricsHTML + encodeURIComponent(e.currentTarget.dataset.id), true);
 		xhr.send();
 		
 		// Hide the search view.
@@ -211,7 +200,7 @@
 				}
 			}
 		};
-		iTunesXHR.open('GET', URLS.ITUNES + encodeURIComponent(title), true);
+		iTunesXHR.open('GET', URLS.iTunes + encodeURIComponent(title), true);
 		iTunesXHR.send();
 		
 		// Search Spotify.
@@ -231,28 +220,23 @@
 				}
 			}
 		};
-		spotifyXHR.open('GET', URLS.SPOTIFY + encodeURIComponent(title), true);
+		spotifyXHR.open('GET', URLS.spotify + encodeURIComponent(title), true);
 		spotifyXHR.send();
 	}
 	/**
 	 * Display the lyrics for the selected song.
-	 * @param {XMLDocument} songXML - The song's data
+	 * @param {String} songLyrics - The song's lyrics as HTML
 	 */
-	function showSong(songXML) {
+	function showSong(songLyrics) {
 		var songCard = document.getElementById('songCard');
 		songCard.classList.add('hidden');
 		songCard.innerHTML = '';
 		
-		var heading = document.createElement('h1');
-		heading.innerText = heading.textContent = songXML.getElementsByTagName('LyricSong')[0].childNodes[0].nodeValue;
-		var artist = document.createElement('small');
-		artist.innerText = artist.textContent = songXML.getElementsByTagName('LyricArtist')[0].childNodes[0].nodeValue;
-		var lyrics = document.createElement('pre');
-		lyrics.innerText = lyrics.textContent = songXML.getElementsByTagName('Lyric')[0].childNodes[0].nodeValue;
+		var bodyTag = /<body.*?>/.exec(songLyrics)[0];
+		var bodyStartIndex = songLyrics.indexOf(bodyTag) + bodyTag.length;
+		var bodyEndIndex = songLyrics.indexOf('</body>');
 		
-		songCard.appendChild(heading);
-		songCard.appendChild(artist);
-		songCard.appendChild(lyrics);
+		songCard.innerHTML = songLyrics.substring(bodyStartIndex, bodyEndIndex);
 		
 		setTimeout(function () {
 			songCard.classList.remove('hidden');

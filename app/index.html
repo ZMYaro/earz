@@ -1,4 +1,8 @@
 		<link rel="stylesheet" type="text/css" href="/static/styles/app.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/melody_input.css" />
+		
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		
 		<script type="text/javascript" src="/static/scripts/app.js"></script>
 		<script type="text/javascript" src="/static/scripts/melody_input.js"></script>
 	</head>
@@ -30,45 +34,46 @@
 				<!-- TODO: Add the on-screen keyboard for melody search -->
 				<form id="melodySearchForm">
 					<input type="hidden" id="melodySearchQuery" name="q" value="" />
+					<div id="melodySearchQueryVis"></div>
 					<div id="pianoContainer">
-						<button type="button" class="z1 whiteKey" data-freq="130.81">C<sub>3</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="138.59">C&#9839;<sub>3</sub>/D&#9837;<sub>3</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="146.83">D<sub>3</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="155.56">D&#9839;<sub>3</sub>/E&#9837;<sub>3</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="164.81">E<sub>3</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="174.61">F<sub>3</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="185.00">F&#9839;<sub>3</sub>/G&#9837;<sub>3</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="196.00">G<sub>3</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="207.65">G&#9839;<sub>3</sub>/A&#9837;<sub>3</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="220.00">A<sub>3</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="233.08">A&#9839;<sub>3</sub>/B&#9837;<sub>3</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="246.94">B<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="130.81">C<sub>3</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="138.59">C&#9839;<sub>3</sub>/D&#9837;<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="146.83">D<sub>3</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="155.56">D&#9839;<sub>3</sub>/E&#9837;<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="164.81">E<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="174.61">F<sub>3</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="185.00">F&#9839;<sub>3</sub>/G&#9837;<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="196.00">G<sub>3</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="207.65">G&#9839;<sub>3</sub>/A&#9837;<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="220.00">A<sub>3</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="233.08">A&#9839;<sub>3</sub>/B&#9837;<sub>3</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="246.94">B<sub>3</sub></button>
+					
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="261.63">C<sub>4</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="277.18">C&#9839;<sub>4</sub>/D&#9837;<sub>4</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="293.66">D<sub>4</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="311.13">D&#9839;<sub>4</sub>/E&#9837;<sub>4</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="329.63">E<sub>4</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="349.23">F<sub>4</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="369.99">F&#9839;<sub>4</sub>/G&#9837;<sub>4</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="392.00">G<sub>4</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="415.30">G&#9839;<sub>4</sub>/A&#9837;<sub>4</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="440.00">A<sub>4</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="466.16">A&#9839;<sub>4</sub>/B&#9837;<sub>4</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="493.88">B<sub>4</sub></button>
 						
-						<button type="button" class="z1 whiteKey" data-freq="261.63">C<sub>4</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="277.18">C&#9839;<sub>4</sub>/D&#9837;<sub>4</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="293.66">D<sub>4</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="311.13">D&#9839;<sub>4</sub>/E&#9837;<sub>4</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="329.63">E<sub>4</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="349.23">F<sub>4</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="369.99">F&#9839;<sub>4</sub>/G&#9837;<sub>4</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="392.00">G<sub>4</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="415.30">G&#9839;<sub>4</sub>/A&#9837;<sub>4</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="440.00">A<sub>4</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="466.16">A&#9839;<sub>4</sub>/B&#9837;<sub>4</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="493.88">B<sub>4</sub></button>
-						
-						<button type="button" class="z1 whiteKey" data-freq="523.25">C<sub>5</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="554.37">C&#9839;<sub>5</sub>/D&#9837;<sub>5</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="587.33">D<sub>5</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="622.25">D&#9839;<sub>5</sub>/E&#9837;<sub>5</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="659.25">E<sub>5</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="698.46">F<sub>5</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="739.99">F&#9839;<sub>5</sub>/G&#9837;<sub>5</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="783.99">G<sub>5</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="830.61">G&#9839;<sub>5</sub>/A&#9837;<sub>5</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="880.00">A<sub>5</sub></button>
-						<button type="button" class="z1 blackKey" data-freq="932.33">A&#9839;<sub>5</sub>/B&#9837;<sub>5</sub></button>
-						<button type="button" class="z1 whiteKey" data-freq="987.77">B<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="523.25">C<sub>5</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="554.37">C&#9839;<sub>5</sub>/D&#9837;<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="587.33">D<sub>5</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="622.25">D&#9839;<sub>5</sub>/E&#9837;<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="659.25">E<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="698.46">F<sub>5</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="739.99">F&#9839;<sub>5</sub>/G&#9837;<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="783.99">G<sub>5</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="830.61">G&#9839;<sub>5</sub>/A&#9837;<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="880.00">A<sub>5</sub></button>
+						<button type="button" class="z1 blackKey" disabled="disabled" data-freq="932.33">A&#9839;<sub>5</sub>/B&#9837;<sub>5</sub></button>
+						<button type="button" class="z1 whiteKey" disabled="disabled" data-freq="987.77">B<sub>5</sub></button>
 						
 					</div>
 					<div style="text-align: right;">

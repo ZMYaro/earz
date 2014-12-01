@@ -3,13 +3,60 @@
 (function () {
 	var lastKeyIndex,
 		query = [],
-		queryElem;
+		queryElem,
+		queryVis,
+		waiting = 2;
 	
-	function init() {
+	function init() { console.log('init called');
+		if (--waiting !== 0) {
+			return;
+		}
+		
 		tone.init();
 		keyboard.init();
+		queryVis.init();
 		queryElem = document.getElementById('melodySearchQuery');
 	}
+	
+	var queryVis = {
+		data: undefined,
+		chart: undefined,
+		chartOptions: {
+			legend: 'none',
+			axisFontSize: 0,
+			hAxis: {
+				baselineColor: 'transparent',
+				gridlineColor: 'transparent',
+				textPosition: 'none'
+			},
+			vAxis: {
+				baselineColor: 'transparent',
+				gridlineColor: 'transparent',
+				textPosition: 'none'
+			},
+			series: [{
+				color: '#f57c00', // colorPrimary
+				lineWidth: 4
+			}],
+			pointSize: 5
+		},
+		/**
+		 * Initialize the data table and chart for the visualization.
+		 */
+		init: function () {
+			this.data = new google.visualization.DataTable();
+			this.data.addColumn('number', 'Index');
+			this.data.addColumn('number', 'Interval');
+			this.chart = new google.visualization.LineChart(document.getElementById('melodySearchQueryVis'));
+			this.draw();
+		},
+		/**
+		 * Update the chart with new data.
+		 */
+		draw: function () {
+			this.chart.draw(this.data, this.chartOptions);
+		}
+	};
 	
 	var keyboard = {
 		container: undefined,
@@ -17,7 +64,7 @@
 		/**
 		 * Set up event listeners for the piano keyboard.
 		 */
-		init: function() {
+		init: function () {
 			// Get the container element.
 			this.container = document.getElementById('pianoContainer');
 			// Get the keyboard key elements.
@@ -33,6 +80,7 @@
 				this.keys[i].ontouchstart = boundPressListener;
 				this.keys[i].onmouseup = boundReleaseListener;
 				this.keys[i].ontouchend = boundReleaseListener;
+				this.keys[i].disabled = false;
 			}
 			
 			var boundBackspaceListener = this.backspaceKeyPressed.bind(this);
@@ -47,19 +95,30 @@
 			e.preventDefault();
 			
 			var keyIndex = this.keys.indexOf(e.currentTarget);
-			if (lastKeyIndex) {
+			// ADd the note to the query array.
+			if (typeof lastKeyIndex === 'undefined') {
+				query.push(0);
+			} else {
 				var delta = (keyIndex - lastKeyIndex) / 2;
 				delta = (delta >= 0 ? 'u' : 'd') +
 					Math.abs(delta);
 				query.push(delta);
 			}
+			
+			// Add the note to the visualization.
+			queryVis.data.addRows([[query.length - 1, keyIndex / 2]]);
+			queryVis.draw();
+			
+			// Update the query element.
 			queryElem.value = query.join(' ');
+			
 			lastKeyIndex = keyIndex;
 			
 			// Play the note.
 			var freq = e.currentTarget.dataset.freq;
 			freq = parseFloat(freq);
 			tone.play(freq);
+			
 		},
 		/**
 		 * Handle a piano key being released.
@@ -75,11 +134,19 @@
 		 */
 		backspaceKeyPressed: function (e) {
 			e.preventDefault();
+			
+			// Remove the last item from the query array.
 			query.splice(-1, 1);
+			// Update the query element.
 			queryElem.value = query.join(' ');
 			if (query.length === 0) {
 				lastKeyIndex = undefined;
 			}
+			
+			// Remove the last item from the visualization.
+			queryVis.data.removeRow(query.length);
+			queryVis.draw();
+			
 		}
 			
 	};
@@ -118,5 +185,7 @@
 		}
 	};
 	
-	window.addEventListener('load', init, false);
+	google.setOnLoadCallback(init);
+	google.load('visualization', '1.0', {packages: ['corechart']});
+	window.addEventListener('load', function () { init(); }, false);
 })();

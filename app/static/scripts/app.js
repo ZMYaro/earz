@@ -3,6 +3,7 @@
 (function () {
 	var URLS = {
 		lyricSearch: '/api/search/lyric?q=',
+		melodySearch: '/api/search/melody?q=',
 		
 		song: '/api/song?id=',
 		lyricsHTML: '/api/lyrics?format=html&id=',
@@ -43,11 +44,17 @@
 			}
 		};
 		
-		// Override the lyric search form.
+		// Override the search forms.
 		lyricSearchForm.onsubmit = function(e) {
 			e.preventDefault();
 			if (e.target.q.value !== '') {
-				searchForLyric(e.target.q.value);
+				searchFor('lyric', e.target.q.value);
+			}
+		};
+		melodySearchForm.onsubmit = function(e) {
+			e.preventDefault();
+			if (e.target.q.value !== '') {
+				searchFor('melody', e.target.q.value);
 			}
 		};
 		
@@ -69,10 +76,11 @@
 	}
 	
 	/**
-	 * Search for songs containing a particular lyric.
-	 * @param {String} query - The lyric to search for
+	 * Search for songs containing a particular lyric or melody.
+	 * @param {String} type - The type of search (lyric or melody)
+	 * @param {String} query - The lyric or melody to search for
 	 */
-	function searchForLyric(query) {
+	function searchFor(type, query) {
 		// Hide the results card while loading.
 		document.getElementById('resultsCard').classList.add('hidden');
 		document.getElementById('songCard').classList.add('hidden');
@@ -91,7 +99,7 @@
 				}
 			}
 		};
-		xhr.open('GET', URLS.lyricSearch + encodeURIComponent(query), true);
+		xhr.open('GET', URLS[type + 'Search'] + encodeURIComponent(query), true);
 		xhr.send();
 	}
 	/**

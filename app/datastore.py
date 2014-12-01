@@ -16,7 +16,7 @@ class Song(ndb.Model):
 	artist = ndb.StringProperty()
 	album = ndb.StringProperty()
 	
-	intervals = ndb.JsonProperty()
+	intervals = ndb.TextProperty()
 	startingNote = ndb.FloatProperty()
 	
 	docId = ndb.StringProperty() # The document ID of the lyrics doc, if any
@@ -30,7 +30,7 @@ class Song(ndb.Model):
 	def _post_put_hook(self,future):
 		# Update the song's associated search document.
 		if self.docId:
-			doc = search.Document(
+			lyricsDoc = search.Document(
 				doc_id=self.id,
 				fields=[
 					search.TextField(name='lyrics', value=self.lyricsText),
@@ -39,7 +39,15 @@ class Song(ndb.Model):
 					search.AtomField(name='album', value=self.album)
 				]
 			)
-			search.Index(name=INDECES['lyrics']).put(doc)
+			search.Index(name=INDECES['lyrics']).put(lyricsDoc)
+			
+			melodyDoc = search.Document(
+				doc_id=self.id,
+				fields=[
+					search.TextField(name='intervals', value=self.intervals)
+				]
+			)
+			search.Index(name=INDECES['melody']).put(melodyDoc)
 	
 	def getLyricsHTML(self):
 		resp = urllib.urlopen(URLS['html'] + self.docId)

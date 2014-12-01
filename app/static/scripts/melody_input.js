@@ -7,7 +7,7 @@
 		queryVis,
 		waiting = 2;
 	
-	function init() { console.log('init called');
+	function init() {
 		if (--waiting !== 0) {
 			return;
 		}
@@ -97,11 +97,13 @@
 			var keyIndex = this.keys.indexOf(e.currentTarget);
 			// ADd the note to the query array.
 			if (typeof lastKeyIndex === 'undefined') {
-				query.push(0);
+				query.push('u0');
 			} else {
 				var delta = (keyIndex - lastKeyIndex) / 2;
+				// Use letters in place of positive/negative signs and decimal points.
 				delta = (delta >= 0 ? 'u' : 'd') +
 					Math.abs(delta);
+				delta = delta.replace('.', 'p');
 				query.push(delta);
 			}
 			

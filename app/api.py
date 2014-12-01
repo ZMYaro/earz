@@ -8,10 +8,13 @@ from google.appengine.ext import ndb
 from datastore import Song
 from constants import INDECES
 
-class LyricSearchHandler(webapp2.RequestHandler):
-	def get(self):
+class SearchHandler(webapp2.RequestHandler):
+	def get(self, type):
 		queryString = self.request.get('q')
-		index = search.Index(INDECES['lyrics'])
+		if type == 'lyric':
+			index = search.Index(INDECES['lyrics'])
+		elif type == 'melody':
+			index = search.Index(INDECES['melody'])
 		query = search.Query(
 			query_string=queryString,
 			options=search.QueryOptions(
@@ -70,7 +73,7 @@ class LyricsHandler(webapp2.RequestHandler):
 			self.response.write(song.lyricsText)
 
 app = webapp2.WSGIApplication([
-	('/api/search/lyric', LyricSearchHandler),
+	('/api/search/(lyric|melody)', SearchHandler),
 	('/api/song', SongInfoHandler),
 	('/api/lyrics', LyricsHandler)
 ], debug=True)

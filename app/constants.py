@@ -3,5 +3,6 @@ DEFAULTS = {
 }
 
 INDECES = {
-	'lyrics': 'lyricsIndex'
+	'lyrics': 'lyricsIndex',
+	'melody': 'melodyIndex'
 }

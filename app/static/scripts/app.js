@@ -170,8 +170,6 @@
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					showSong(xhr.responseText);
-				} else {
-					alert('A ' + xhr.status + ' error occurred while loading the song.  Please wait and then try again.');
 				}
 			}
 		};
@@ -259,7 +257,7 @@
 	 * Display the lyrics for the selected song.
 	 * @param {String} songLyrics - The song's lyrics as HTML
 	 */
-	function showSong(songLyrics) {
+	function showSongLyrics(songLyrics) {
 		var songCard = document.getElementById('songCard');
 		songCard.classList.add('hidden');
 		songCard.innerHTML = '';

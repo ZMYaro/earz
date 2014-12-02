@@ -65,6 +65,12 @@ class LyricsHandler(webapp2.RequestHandler):
 		id = self.request.get('id')
 		format = self.request.get('format')
 		song = Song.gql('WHERE id = :1', id).get()
+		
+		# Do not proceed if the song has no lyrics.
+		if not song.docId:
+			self.error(404)
+			return
+		
 		if format and format == 'html':
 			self.response.headers['Content-Type'] = 'text/html'
 			self.response.write(song.lyricsHTML)

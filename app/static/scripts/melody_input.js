@@ -176,7 +176,8 @@
 		 * Set up the objects for playing tones when keyboard keys are pressed.
 		 */
 		init: function () {
-			this.cxt = new AudioContext();
+			var AudioCxt = window.AudioContext || window.webkitAudioContext;
+			this.cxt = new AudioCxt();
 		},
 		/**
 		 * Start playing a tone.
@@ -190,13 +191,13 @@
 			this.oscNode = this.cxt.createOscillator();
 			this.oscNode.frequency.value = freq;
 			this.oscNode.connect(this.cxt.destination); 
-			this.oscNode.start();
+			this.oscNode.start(0);
 		},
 		/**
 		 * Stop playing the current tone.
 		 */
 		stop: function () {
-			this.oscNode.stop();
+			this.oscNode.stop(0);
 			this.oscNode.disconnect();
 			this.oscNode = undefined;
 		}

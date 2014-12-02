@@ -129,7 +129,8 @@
 #melodySearchForm {
 	opacity: 1;
 	
-	transform: translateX(0);
+	position: relative;
+	left: 0;
 	
 	-webkit-transition-duration: 0.2s;
 	   -moz-transition-duration: 0.2s;
@@ -149,12 +150,12 @@
 	#lyricSearchForm.hidden {
 		opacity: 0;
 		
-		transform: translateX(-48px);
+		left: -48px;
 	}
 	#melodySearchForm.hidden {
 		opacity: 0;
 		
-		transform: translateX(48px);
+		left: 48px;
 	}
 
 #songCard h1,

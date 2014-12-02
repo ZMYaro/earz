@@ -79,15 +79,17 @@
 			}
 		};
 		
-		
 		// Load the last used search type from localStorage.
+		var lastSearchTypeRadio;
 		if (localStorage.searchType === 'melody') {
 			//searchTypeForm.searchType.value = 'melody';
-			document.getElementById('melodySearchType').click();
+			lastSearchTypeRadio = document.getElementById('melodySearchType');
 		} else {
 			//searchTypeForm.searchType.value = 'lyric';
-			document.getElementById('lyricSearchType').click();
+			lastSearchTypeRadio = document.getElementById('lyricSearchType');
 		}
+		lastSearchTypeRadio.checked = false;
+		lastSearchTypeRadio.click();
 	}
 	/**
 	 * Set up event listeners for the song view.

@@ -1,8 +1,13 @@
-.appBar button > img,
-.appBar *[role="button"] > img {
-	width: 32px;
-	height: 32px;
+.appBar {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+	.appBar button > img,
+	.appBar *[role="button"] > img {
+		width: 32px;
+		height: 32px;
+	}
 
 section,
 section.card {

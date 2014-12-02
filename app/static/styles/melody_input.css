@@ -27,7 +27,11 @@
 		padding: 0;
 		vertical-align: top;
 		
-		transition-property: all;
+		-webkit-transition-property: all;
+		   -moz-transition-property: all;
+		    -ms-transition-property: all;
+		     -o-transition-property: all;
+		        transition-property: all;
 	}
 		#pianoContainer .whiteKey {
 			padding-top: 124px;

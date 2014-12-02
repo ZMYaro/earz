@@ -1,10 +1,7 @@
 'use strict';
 
 (function () {
-	var LYRIC_SEARCH_HEIGHT = 151,
-		MELODY_SEARCH_HEIGHT = 536,
-		
-		URLS = {
+	var URLS = {
 			lyricSearch: '/api/search/lyric?q=',
 			melodySearch: '/api/search/melody?q=',
 			
@@ -31,7 +28,8 @@
 	 * Set up event listeners for the search view.
 	 */
 	function initSearchView() {
-		var searchCard = document.getElementById('searchCard'),
+		var SEARCH_CARD_VERTICAL_PADDING = 40, // px
+			searchCard = document.getElementById('searchCard'),
 			searchTypeForm = document.getElementById('searchTypeForm'),
 			lyricSearchForm = document.getElementById('lyricSearchForm'),
 			melodySearchForm = document.getElementById('melodySearchForm');
@@ -47,13 +45,12 @@
 				transitionTimeout = undefined;
 			}
 			if (e.target.value === 'melody') {
-				searchCard.style.height = MELODY_SEARCH_HEIGHT + 'px';
 				lyricSearchForm.classList.add('hidden');
 				melodySearchForm.style.display = null;
+				searchCard.style.height = (searchTypeForm.offsetHeight + melodySearchForm.offsetHeight + SEARCH_CARD_VERTICAL_PADDING) + 'px';
 				
 				// Scroll to the middle of the keyboard.
 				document.getElementById('pianoContainer').scrollLeft = PIANO_DEFAULT_SCROLL;
-				
 				
 				transitionTimeout = setTimeout(function () {
 					lyricSearchForm.style.display = 'none';
@@ -61,9 +58,10 @@
 					melodySearchForm.firstElementChild.focus();
 				}, TRANSITION_DURATION);
 			} else {
-				searchCard.style.height = LYRIC_SEARCH_HEIGHT + 'px';
 				melodySearchForm.classList.add('hidden');
 				lyricSearchForm.style.display = null;
+				searchCard.style.height = (searchTypeForm.offsetHeight + lyricSearchForm.offsetHeight + SEARCH_CARD_VERTICAL_PADDING) + 'px';
+				
 				transitionTimeout = setTimeout(function () {
 					melodySearchForm.style.display = 'none';
 					lyricSearchForm.classList.remove('hidden');

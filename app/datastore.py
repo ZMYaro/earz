@@ -40,7 +40,8 @@ class Song(ndb.Model):
 				]
 			)
 			search.Index(name=INDECES['lyrics']).put(lyricsDoc)
-			
+		
+		if self.intervals:
 			melodyDoc = search.Document(
 				doc_id=self.id,
 				fields=[

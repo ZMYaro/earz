@@ -1,19 +1,22 @@
 'use strict';
 
 (function () {
-	var URLS = {
-		lyricSearch: '/api/search/lyric?q=',
-		melodySearch: '/api/search/melody?q=',
+	var LYRIC_SEARCH_HEIGHT = 151,
+		MELODY_SEARCH_HEIGHT = 536,
 		
-		song: '/api/song?id=',
-		lyricsHTML: '/api/lyrics?format=html&id=',
-				
-		iTunes: '/proxy/itunes?q=',
-		spotify: '/proxy/spotify?q=',
-		youTube: 'https://www.youtube.com/results?search_query='
-	};
-	
-	var TRANSITION_DURATION = 200; // Milliseconds
+		URLS = {
+			lyricSearch: '/api/search/lyric?q=',
+			melodySearch: '/api/search/melody?q=',
+			
+			song: '/api/song?id=',
+			lyricsHTML: '/api/lyrics?format=html&id=',
+					
+			iTunes: '/proxy/itunes?q=',
+			spotify: '/proxy/spotify?q=',
+			youTube: 'https://www.youtube.com/results?search_query='
+		},
+		
+		TRANSITION_DURATION = 200; // Milliseconds
 	
 	/**
 	 * Initialize the application.
@@ -26,21 +29,39 @@
 	 * Set up event listeners for the search view.
 	 */
 	function initSearchView() {
-		var searchTypeForm = document.getElementById('searchTypeForm'),
+		var searchCard = document.getElementById('searchCard'),
+			searchTypeForm = document.getElementById('searchTypeForm'),
 			lyricSearchForm = document.getElementById('lyricSearchForm'),
 			melodySearchForm = document.getElementById('melodySearchForm');
 		
 		// Change the visible search type when the option is changed.
+		var transitionTimeout;
 		searchTypeForm.onchange = function (e) {
+			// Update the saved setting in localStorage.
 			localStorage.searchType = e.target.value;
+			// Clear any pending animations.
+			if (transitionTimeout) {
+				clearTimeout(transitionTimeout);
+				transitionTimeout = undefined;
+			}
 			if (e.target.value === 'melody') {
-				lyricSearchForm.style.display = 'none';
-				melodySearchForm.style.display = 'block';
-				melodySearchForm.firstElementChild.focus();
+				searchCard.style.height = MELODY_SEARCH_HEIGHT + 'px';
+				lyricSearchForm.classList.add('hidden');
+				melodySearchForm.style.display = null;
+				transitionTimeout = setTimeout(function () {
+					lyricSearchForm.style.display = 'none';
+					melodySearchForm.classList.remove('hidden');
+					melodySearchForm.firstElementChild.focus();
+				}, TRANSITION_DURATION);
 			} else {
-				melodySearchForm.style.display = 'none';
-				lyricSearchForm.style.display = 'block';
-				lyricSearchForm.firstElementChild.focus();
+				searchCard.style.height = LYRIC_SEARCH_HEIGHT + 'px';
+				melodySearchForm.classList.add('hidden');
+				lyricSearchForm.style.display = null;
+				transitionTimeout = setTimeout(function () {
+					melodySearchForm.style.display = 'none';
+					lyricSearchForm.classList.remove('hidden');
+					lyricSearchForm.firstElementChild.focus();
+				}, TRANSITION_DURATION);
 			}
 		};
 		

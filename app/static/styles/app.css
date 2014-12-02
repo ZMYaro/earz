@@ -108,12 +108,34 @@
 		        transition-duration: 0;
 	}
 
+#searchCard {
+	overflow: hidden;
+	-webkit-transition-property: height;
+	   -moz-transition-property: height;
+	    -ms-transition-property: height;
+	     -o-transition-property: height;
+	        transition-property: height;
+	-webkit-transition-duration: 0.2s;
+	   -moz-transition-duration: 0.2s;
+	    -ms-transition-duration: 0.2s;
+	     -o-transition-duration: 0.2s;
+	        transition-duration: 0.2s;
+}
 #searchTypeForm {
 	line-height: 1.75em;
 	margin-bottom: 0.5em;
 }
-#lyricSearchForm, #melodySearchForm {
-	display: none;
+#lyricSearchForm,
+#melodySearchForm {
+	opacity: 1;
+	
+	transform: translateX(0);
+	
+	-webkit-transition-duration: 0.2s;
+	   -moz-transition-duration: 0.2s;
+	    -ms-transition-duration: 0.2s;
+	     -o-transition-duration: 0.2s;
+	        transition-duration: 0.2s;
 }
 	#lyricSearchForm input[type="search"] {
 		display: block;
@@ -123,6 +145,16 @@
 	#melodySearchForm button {
 		margin-right: 0;
 		margin-bottom: 0;
+	}
+	#lyricSearchForm.hidden {
+		opacity: 0;
+		
+		transform: translateX(-48px);
+	}
+	#melodySearchForm.hidden {
+		opacity: 0;
+		
+		transform: translateX(48px);
 	}
 
 #songCard h1,

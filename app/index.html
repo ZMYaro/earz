@@ -25,14 +25,14 @@
 					</label>
 				</form>
 				<!-- The text input form for lyric search -->
-				<form id="lyricSearchForm">
+				<form id="lyricSearchForm" class="hidden" style="display: none;">
 					<input type="search" name="q" placeholder="Type a lyric here" maxlength="200" required="required" />
 					<div style="text-align: right;">
 						<button type="submit">Search</button>
 					</div>
 				</form>
 				<!-- TODO: Add the on-screen keyboard for melody search -->
-				<form id="melodySearchForm">
+				<form id="melodySearchForm" class="hidden" style="display: none;">
 					<input type="hidden" id="melodySearchQuery" name="q" value="" />
 					<div id="melodySearchQueryVis"></div>
 					<div id="pianoContainer">

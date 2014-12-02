@@ -1,3 +1,66 @@
 #melodySearchQueryVis {
 	height: 128px;
 }
+
+#pianoContainer {
+	position: relative;
+	margin-left: -16px;
+	margin-right: -16px;
+	padding: 16px 4px;
+	
+	overflow: auto;
+	overflow-x: scroll;
+	white-space: nowrap;
+	
+	/* Leave an area for touch scrolling. */
+	padding-bottom: 48px;
+	background-image: url('/static/images/scroller.png');
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+	#pianoContainer button {
+		white-space: normal;
+		color: transparent;
+		
+		position: relative;
+		min-width: 0;
+		padding: 0;
+		vertical-align: top;
+		
+		transition-property: all;
+	}
+		#pianoContainer .whiteKey {
+			padding-top: 124px;
+			
+			width: 48px;
+			height: 192px;
+			margin-left: 2px;
+			margin-right: 2px;
+			
+			z-index: 3;
+		}
+			#pianoContainer.showLabels .whiteKey {
+				color: black;
+				padding-top: 148px;
+			}
+		#pianoContainer .blackKey {
+			background-color: #101010;
+			font-size: 14px;
+			padding-top: 32px;
+			
+			width: 40px;
+			height: 108px;
+			margin-left: -22px;
+			margin-right: -22px;
+			
+			z-index: 4;
+		}
+			#pianoContainer.showLabels .blackKey {
+				color: white;
+				padding-top: 56px;
+			}
+
+label[for="pianoLabelsCheckbox"] {
+	float: left;
+	margin-top: 18px;
+}

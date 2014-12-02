@@ -59,16 +59,31 @@
 	};
 	
 	var keyboard = {
-		container: undefined,
 		keys: undefined,
 		/**
 		 * Set up event listeners for the piano keyboard.
 		 */
 		init: function () {
 			// Get the container element.
-			this.container = document.getElementById('pianoContainer');
+			var container = document.getElementById('pianoContainer');
+			
+			// Get the labels checkbox.
+			var labelsCheckbox = document.getElementById('pianoLabelsCheckbox');
+			labelsCheckbox.onchange = function (e) {
+				if (e.target.checked) {
+					container.classList.add('showLabels');
+					localStorage.showPianoLabels = 'true';
+				} else {
+					container.classList.remove('showLabels');
+					localStorage.showPianoLabels = '';
+				}
+			};
+			if (localStorage.showPianoLabels) {
+				labelsCheckbox.click();
+			}
+			
 			// Get the keyboard key elements.
-			this.keys = this.container.getElementsByTagName('button');
+			this.keys = container.getElementsByTagName('button');
 			// Convert the list of elements to an actual Array.
 			this.keys = Array.prototype.slice.call(this.keys);
 			

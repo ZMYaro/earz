@@ -147,7 +147,8 @@
 			
 			var metadata = document.createElement('small');
 			metadata.innerText = metadata.textContent = results[i].artist +
-				(results[i].album ? ' - ' + results[i].album : '');
+				(results[i].artist && results[i].album ? ' - ' : '') +
+				results[i].album;
 			
 			itemButton.appendChild(title);
 			itemButton.appendChild(metadata);

@@ -16,7 +16,9 @@
 			youTube: 'https://www.youtube.com/results?search_query='
 		},
 		
-		TRANSITION_DURATION = 200; // Milliseconds
+		TRANSITION_DURATION = 200, // Milliseconds
+		
+		PIANO_DEFAULT_SCROLL = 187;
 	
 	/**
 	 * Initialize the application.
@@ -48,6 +50,11 @@
 				searchCard.style.height = MELODY_SEARCH_HEIGHT + 'px';
 				lyricSearchForm.classList.add('hidden');
 				melodySearchForm.style.display = null;
+				
+				// Scroll to the middle of the keyboard.
+				document.getElementById('pianoContainer').scrollLeft = PIANO_DEFAULT_SCROLL;
+				
+				
 				transitionTimeout = setTimeout(function () {
 					lyricSearchForm.style.display = 'none';
 					melodySearchForm.classList.remove('hidden');

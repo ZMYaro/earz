@@ -21,8 +21,37 @@
 	 * Initialize the application.
 	 */
 	function init() {
+		initWelcomeCard();
 		initSearchView();
 		initSongView();
+	}
+	/**
+	 * Set up event listeners for the welcome card.
+	 */
+	function initWelcomeCard() {
+		var welcomeCard = document.getElementById('welcomeCard'),
+			welcomeOkButton = document.getElementById('welcomeOkButton');
+		
+		welcomeOkButton.onclick = function (e) {
+			e.preventDefault();
+			
+			// Save when the message was last dismissed.
+			localStorage.welcomeDismissed = (new Date()).getTime();
+			
+			// Collapse and hide the welcome card.
+			welcomeCard.style.height = welcomeCard.offsetHeight + 'px';
+			welcomeCard.classList.add('hidden');
+			setTimeout(function () {
+				welcomeCard.style.height = null;
+			}, 1);
+			setTimeout(function () {
+				welcomeCard.parentElement.removeChild(welcomeCard);
+			}, TRANSITION_DURATION);
+		};
+		
+		if (localStorage.welcomeDismissed) {
+			welcomeOkButton.click();
+		}
 	}
 	/**
 	 * Set up event listeners for the search view.

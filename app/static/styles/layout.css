@@ -16,7 +16,12 @@ section.card {
 	margin: 16px auto;
 	
 	opacity: 1;
-	transform: translateY(0);
+	
+	-webkit-transform: translateY(0);
+	   -moz-transform: translateY(0);
+	    -ms-transform: translateY(0);
+	     -o-transform: translateY(0);
+	        transform: translateY(0);
 	
 	-webkit-animation-duration: 0.2s;
 	   -moz-animation-duration: 0.2s;
@@ -33,7 +38,12 @@ section.card {
 		display: none;
 		
 		opacity: 0;
-		transform: translateY(16px);
+		
+		-webkit-transform: translateY(16px);
+		   -moz-transform: translateY(16px);
+		    -ms-transform: translateY(16px);
+		     -o-transform: translateY(16px);
+		        transform: translateY(16px);
 		
 		-webkit-animation-name: none;
 		   -moz-animation-name: none;

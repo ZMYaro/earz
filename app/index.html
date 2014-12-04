@@ -9,6 +9,24 @@
 	<body>
 		<!-- View containers -->
 		<div id="searchContainer">
+			<!-- Welcome card -->
+			<section class="card z1" id="welcomeCard">
+				<div style="display: inline-block; width: 20%; vertical-align: top;">
+					<img src="/static/images/icons/icon_256.png" alt="EarZ logo" style="width: 100%;" />
+				</div>
+				<div style="display: inline-block; width: 78%; vertical-align: top;">
+					<h1 style="font-weight: 400; font-size: 200%; opacity: 0.8; margin: 0;">Welcome</h1>
+					<p>EarZ is a song lookup tool designed for humans.  Unlike tools that can only match songs' original recordings, EarZ allows you to enter a lyric or melody as you remember it.</p>
+					<p>EarZ is currently in beta.  For the moment, it only contains the <em>Tangled</em> and <em>Frozen</em> soundtracks, but much more will be added over time.</p>
+				</div>
+				<div style="text-align: right;">
+					<button type="submit" id="welcomeOkButton">
+						<img src="/static/images/icons/check.png" alt="" style="width: 32px; height: 32px; margin: -10px; margin-right: 5px;" />
+						Got it
+					</button>
+				</div>
+			</section>
+			
 			
 			<!-- Search box card -->
 			<section class="card z1" id="searchCard">
@@ -31,7 +49,6 @@
 						<button type="submit">Search</button>
 					</div>
 				</form>
-				<!-- TODO: Add the on-screen keyboard for melody search -->
 				<form id="melodySearchForm" class="hidden" style="display: none;">
 					<input type="hidden" id="melodySearchQuery" name="q" value="" />
 					<div id="melodySearchQueryVis"></div>

@@ -108,8 +108,37 @@
 		        transition-duration: 0;
 	}
 
-#searchCard {
+#welcomeCard {
 	overflow: hidden;
+	
+	opacity: 1;
+	
+	-webkit-transition-duration: 0.2s;
+	   -moz-transition-duration: 0.2s;
+	    -ms-transition-duration: 0.2s;
+	     -o-transition-duration: 0.2s;
+	        transition-duration: 0.2s;
+	-webkit-transition-property: all;
+	   -moz-transition-property: all;
+	    -ms-transition-property: all;
+	     -o-transition-property: all;
+	        transition-property: all;
+}
+	#welcomeCard.hidden {
+		display: block;
+		height: 0;
+		color: rgba(0,0,0,0);	
+		opacity: 0;
+		
+		-webkit-transform: none;
+		   -moz-transform: none;
+		    -ms-transform: none;
+		     -o-transform: none;
+		        transform: none;
+	}                        	
+                             	
+#searchCard {                	
+	overflow: hidden;        	
 	-webkit-transition-property: height;
 	   -moz-transition-property: height;
 	    -ms-transition-property: height;

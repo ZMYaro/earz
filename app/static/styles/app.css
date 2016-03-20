@@ -99,13 +99,18 @@
 		   -moz-box-shadow: none;
 		        box-shadow: none;
 		
-		opacity: 0;
+		opacity: 1;
 		
 		-webkit-transition-duration: 0;
 		   -moz-transition-duration: 0;
 		    -ms-transition-duration: 0;
 		     -o-transition-duration: 0;
 		        transition-duration: 0;
+		-webkit-transition-property: opacity;
+		   -moz-transition-property: opacity;
+		    -ms-transition-property: opacity;
+		     -o-transition-property: opacity;
+		        transition-property: opacity;
 	}
 
 #welcomeCard {

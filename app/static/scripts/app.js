@@ -228,6 +228,10 @@
 		songAppBar.style.right = (window.innerWidth - (e.currentTarget.offsetLeft + e.currentTarget.offsetWidth)) + 'px';
 		songAppBar.style.top = (e.currentTarget.offsetTop - window.scrollY) + 'px';
 		document.getElementById('songTitle').innerHTML = e.currentTarget.dataset.title;
+		
+		// Force a reflow.
+		songAppBar.offsetTop;
+		
 		setTimeout(function () {
 			songAppBar.classList.remove('hidden');
 			songContainer.classList.remove('hidden');
@@ -301,10 +305,9 @@
 		var bodyEndIndex = songLyrics.indexOf('</body>');
 		
 		songCard.innerHTML = songLyrics.substring(bodyStartIndex, bodyEndIndex);
-		
-		setTimeout(function () {
-			songCard.classList.remove('hidden');
-		}, 1);
+		// Force a reflow.
+		songCard.offsetTop;
+		songCard.classList.remove('hidden');
 	}
 	/**
 	 * Hide the current song and return to search results.
@@ -326,12 +329,10 @@
 		var searchContainer = document.getElementById('searchContainer');
 		searchAppBar.style.display = null;
 		searchContainer.style.display = null;
-		setTimeout(function () {
-			searchAppBar.classList.remove('hidden');
-			searchContainer.classList.remove('hidden');
-		}, 1);
+		searchAppBar.offsetTop;
+		searchAppBar.classList.remove('hidden');
+		searchContainer.classList.remove('hidden');
 	}
-	
 	
 	window.addEventListener('load', init, false);
 })();

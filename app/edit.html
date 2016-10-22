@@ -11,11 +11,11 @@
 	</head>
 	<body>
 		<form method="POST" action="/admin/edit">
-			<header class="appBar z2">
+			<header role="toolbar" class="appBar z2">
 				<button type="submit" style="float: right;">
 					<img src="/static/images/icons/save.png" alt="Save" />
 				</button>
-				<a role="button" href="/admin">
+				<a role="button" class="backButton" href="/admin">
 					<img src="/static/images/icons/back.png" alt="Back" />
 				</a>
 				{% if song %}

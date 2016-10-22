@@ -262,7 +262,7 @@
 						songLinksCard.innerHTML += '<a role=\"button\" href=\"' +
 							response.results[0].trackViewUrl +
 							'\" target=\"_blank\">' +
-							'<img src=\"/static/images/icons/itunes_32.png\" alt=\"\" style=\"margin: -10px; margin-right: 10px;\" />' +
+							'<img src=\"/static/images/icons/itunes_32.png\" alt=\"\" />' +
 							'Buy on iTunes</a>';
 					}
 				}
@@ -282,7 +282,7 @@
 						songLinksCard.innerHTML += '<a role=\"button\" href=\"' +
 							response.tracks.items[0].external_urls.spotify +
 							'\" target=\"_blank\">' +
-							'<img src=\"/static/images/icons/spotify_32.png\" alt=\"\" style=\"margin: -10px; margin-right: 10px;\" />' +
+							'<img src=\"/static/images/icons/spotify_32.png\" alt=\"\" />' +
 							'Listen on Spotify</a>';
 					}
 				}

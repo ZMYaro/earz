@@ -198,6 +198,13 @@
 	min-height: 16px;
 }
 
+#songLinksCard a img {
+	width: 24px;
+	height: 24px;
+	margin: -6px;
+	margin-right: 8px;
+}
+
 @media (max-width: 600px) {
 	#searchContainer,
 	#songContainer {

@@ -50,7 +50,9 @@
 		};
 		
 		if (localStorage.welcomeDismissed) {
-			welcomeOkButton.click();
+			welcomeCard.parentElement.removeChild(welcomeCard);
+		} else {
+			welcomeCard.classList.remove('hidden');
 		}
 	}
 	/**

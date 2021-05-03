@@ -9,9 +9,7 @@
 
 section,
 section.card {
-	display: block;
 	max-width: 800px;
-	margin: 16px auto;
 	
 	opacity: 1;
 	
@@ -79,17 +77,10 @@ label {
 
 /* Styles for smaller screens, such as mobile phones */
 @media (max-width: 600px) {
-	section,
-	section.card {
-		margin: 16px -16px;
-		-webkit-border-radius: 0;
-		   -moz-border-radius: 0;
-		        border-radius: 0;
+	section:first-of-type,
+	section.card:first-of-type {
+		margin-top: -16px;
 	}
-		section:first-of-type,
-		section.card:first-of-type {
-			margin-top: -16px;
-		}
 	
 	/* Lower the app bar to effectively z = 1. */
 	.appBar.z2 {
